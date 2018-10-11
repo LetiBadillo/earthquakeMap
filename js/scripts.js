@@ -26,10 +26,9 @@ function initAutocomplete() {
     });
 
     
-    // Add location input to UI element.
+    // Add location input to UI element
     var searchBox = new google.maps.places.SearchBox(input);
     map.controls[google.maps.ControlPosition.RIGHT_TOP].push(input);
-    
     // Listener to detect when the user selects location
     searchBox.addListener('places_changed', function() {
         var places = searchBox.getPlaces();
