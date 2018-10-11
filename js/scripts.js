@@ -4,7 +4,7 @@ var map = "";
 var markers = [];
 var rectangle = "";
 var input = document.getElementById('pac-input');
-
+getLatest();
 function clearMap(){
     // Clears old markers and rectangles
     markers.forEach(function(marker) {
@@ -135,6 +135,33 @@ function getEarthquakes(markers, north, west, south, east){
     });
 }
 
+function getLatest(){
+    var url = "http://api.geonames.org/earthquakesJSON?north=90&south=-90&east=180&west=-180&username=holyfletcher&date="+getToday();
+    console.log(url);
+    console.log(getToday());
+    $.get(url, function(data) {
+        console.log(data);
+        if(data.earthquakes.length > 0){
+            var content = "";
+            $.each(data.earthquakes, function(key, value){
+                content += '<a href="#" class="list-group-item list-group-item-action flex-column align-items-start">\
+                <small><b>#'+(key+1)+'</b> <span class="badge badge-secondary">'+value.datetime+'</span></small>\
+                <br>\
+                <small>Coordinates: (' + value.lat+', '+value.lng+')</small>\
+                <br>\
+                <small>Magnitude: ' + value.magnitude+' Depth: ' + value.depth+'</small>\
+                </a>';
+            });
+            $('#latest_earthquakes').html(content);
+        }else{
+            content = ""
+        }
+        $('#latest_earthquakes').html(content);
+    }).fail(function(err) {
+        showModal("Error","Ups, error encountered.");
+    });
+}
+
 function showModal(title, body){
     $('.modal-title').html(title);
     $('.modal-body').html('<p>'+body+'</p>');
@@ -142,3 +169,12 @@ function showModal(title, body){
     clearMap();
 }
 
+function getToday() {
+    var date = new Date();
+    var dd = date.getDate(); //yields day
+    var mm = date.getMonth(); //yields month
+    var yyyy = date.getFullYear()-1; //yields year
+    var today= yyyy + "-" +( mm+1) + "-" + dd;
+ 
+    return today;
+ }

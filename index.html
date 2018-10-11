@@ -12,12 +12,6 @@
         #map {
           height: 100Vh;
         }
-        /* Optional: Makes the sample page fill the window. */
-        html, body {
-          height: 100%;
-          margin: 0;
-          padding: 0;
-        }
         #description {
           font-family: Roboto;
           font-size: 15px;
@@ -81,12 +75,36 @@
         #title {
           color: #fff;
           background-color: #4d90fe;
-          font-size: 25px;
+          font-size: 20px;
           font-weight: 500;
-          padding: 6px 12px;
+          padding: 3px 6px;
         }
         #target {
           width: 345px;
+        }
+
+        #earthquakes_card{
+            height: 100vH;
+            overflow-y: scroll;
+        }
+        /* width */
+        ::-webkit-scrollbar {
+            width: 10px;
+        }
+
+        /* Track */
+        ::-webkit-scrollbar-track {
+            background: #f1f1f1; 
+        }
+        
+        /* Handle */
+        ::-webkit-scrollbar-thumb {
+            background: #888; 
+        }
+
+        /* Handle on hover */
+        ::-webkit-scrollbar-thumb:hover {
+            background: #555; 
         }
       </style>
 </head>
@@ -112,24 +130,17 @@
 
     <div class="container-fluid"> <!--start container-fluid-->
         <div class="row"> <!--start row-->
-            <div class="col-lg-9 input-group-lg"> <!--start container-fluid-->
+            <div class="col-lg-10 p-0 m-0"> <!--start container-fluid-->
                 <input id="pac-input" class="controls form-control mx-4" type="text" placeholder="Enter location...">
                 <div id="map"></div>
             </div> <!--end map column-->
-            <div class="col-lg-3"> <!--start list column-->
-                <div class="card" style="width: 18rem;">
+            <div class="col-lg-2 p-0 m-0"> <!--start list column-->
+                <div class="card" id="earthquakes_card">
                     <div class="card-body">
                         <h5 class="card-title">10 largest earthquakes in the world for the last 12 months</h5>
                         <hr>
                         <div class="list-group" id="latest_earthquakes"> <!--start list-group -->
-                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
-                            <div class="d-flex w-100 justify-content-between">
-                                <h5 class="mb-1">Earthquake</h5>
-                                <small>date</small>
-                            </div>
-                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
-                            <small>Donec id elit non mi porta.</small>
-                            </a>
+                            
                         </div> <!--end list-group -->
                     </div> <!--end card-body -->
                 </div> <!--end card -->
