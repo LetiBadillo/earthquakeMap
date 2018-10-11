@@ -95,7 +95,7 @@ function initAutocomplete() {
 }
 
 function getEarthquakes(markers, north, west, south, east){
-    var url = "https://api.geonames.org/earthquakesJSON?north="+north+"&south="+south+"&east="+east+"&west="+west+"&username=holyfletcher&maxRows=10";
+    var url = "http://api.geonames.org/earthquakesJSON?north="+north+"&south="+south+"&east="+east+"&west="+west+"&username=holyfletcher&maxRows=10";
     $.get(url, function(data) {
         if(data.earthquakes.length > 0){
             var marker, contentString = "";
@@ -138,7 +138,7 @@ function getEarthquakes(markers, north, west, south, east){
 }
 
 function getLatest(){
-    var url = "https://api.geonames.org/earthquakesJSON?north=90&south=-90&east=180&west=-180&username=holyfletcher&date="+getToday();
+    var url = "http://api.geonames.org/earthquakesJSON?north=90&south=-90&east=180&west=-180&username=holyfletcher&date="+getToday();
     console.log(url);
     console.log(getToday());
     $.get(url, function(data) {
