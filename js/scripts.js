@@ -99,9 +99,14 @@ function getEarthquakes(markers, north, west, south, east){
     $.get(url, function(data) {
         if(data.earthquakes.length > 0){
             var marker, contentString = "";
-            var infowindow = new google.maps.InfoWindow(); 
+            var infowindow = new google.maps.InfoWindow();
             $.each(data.earthquakes, function(key, value){
                 marker = ""
+
+                marker = new google.maps.Marker({
+                    map: map,
+                    position: {lat: value.lat, lng: value.lng},
+                }); 
                 
                 //Earthquake info
                 contentString= '<div id="content" class="text-center">'+
@@ -109,18 +114,15 @@ function getEarthquakes(markers, north, west, south, east){
                     '<div id="bodyContent">\
                         <p>Location: (' + value.lat+', '+value.lng+')</p>\
                         <p>'+value.datetime+'</p>\
-                        <p>Magnitude: ' + value.magnitude+' Depth: ' + value.depth+'</p>\
+                        <p>Magnitude: ' + value.magnitude+' | Depth: ' + value.depth+'</p>\
                     </div></div>';
-
-                marker = new google.maps.Marker({
-                    map: map,
-                    position: {lat: value.lat, lng: value.lng},
-                }); 
+                marker.html = contentString;
+                 
+    
                 
                 google.maps.event.addListener(marker, 'mouseover', (function(marker) {  
                         return function() {  
-                            var content = contentString;  
-                            infowindow.setContent(content);  
+                            infowindow.setContent(marker.html);  
                             infowindow.open(map, marker);  
                         }  
                 })(marker)); 
