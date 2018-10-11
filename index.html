@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <style>
+        /* Always set the map height explicitly to define the size of the div
+         * element that contains the map. */
+        #map {
+          height: 100Vh;
+        }
+        /* Optional: Makes the sample page fill the window. */
+        html, body {
+          height: 100%;
+          margin: 0;
+          padding: 0;
+        }
+        #description {
+          font-family: Roboto;
+          font-size: 15px;
+          font-weight: 300;
+        }
+  
+        #infowindow-content .title {
+          font-weight: bold;
+        }
+  
+        #infowindow-content {
+          display: none;
+        }
+  
+        #map #infowindow-content {
+          display: inline;
+        }
+  
+        .pac-card {
+          margin: 10px 10px 0 0;
+          border-radius: 2px 0 0 2px;
+          box-sizing: border-box;
+          -moz-box-sizing: border-box;
+          outline: none;
+          box-shadow: 0 2px 6px rgba(0, 0, 0, 0.3);
+          background-color: #fff;
+          font-family: Roboto;
+        }
+  
+        #pac-container {
+          padding-bottom: 12px;
+          margin-right: 12px;
+        }
+  
+        .pac-controls {
+          display: inline-block;
+          padding: 5px 11px;
+        }
+  
+        .pac-controls label {
+          font-family: Roboto;
+          font-size: 13px;
+          font-weight: 300;
+        }
+  
+        #pac-input {
+          background-color: #fff;
+          font-family: Roboto;
+          font-size: 15px;
+          font-weight: 300;
+          margin-left: 12px;
+          padding: 0 11px 0 13px;
+          text-overflow: ellipsis;
+          width: 400px;
+        }
+  
+        #pac-input:focus {
+          border-color: #4d90fe;
+        }
+  
+        #title {
+          color: #fff;
+          background-color: #4d90fe;
+          font-size: 25px;
+          font-weight: 500;
+          padding: 6px 12px;
+        }
+        #target {
+          width: 345px;
+        }
+      </style>
+</head>
+<body>      
+    <!-- Modal -->
+    <div class="modal fade" id="alertModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h5 class="modal-title" id="alertModalLabel"></h5>
+              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+              </button>
+            </div>
+            <div class="modal-body">
+            </div>
+            <div class="modal-footer">
+              <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button>
+            </div>
+          </div>
+        </div>
+    </div>
+
+    <div class="container-fluid"> <!--start container-fluid-->
+        <div class="row"> <!--start row-->
+            <div class="col-lg-9 input-group-lg"> <!--start container-fluid-->
+                <input id="pac-input" class="controls form-control" type="text" placeholder="Type location...">
+                <div id="map"></div>
+            </div> <!--end map column-->
+            <div class="col-lg-3"> <!--start list column-->
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">10 largest earthquakes in the world for the last 12 months</h5>
+                        <hr>
+                        <div class="list-group" id="latest_earthquakes"> <!--start list-group -->
+                            <a href="#" class="list-group-item list-group-item-action flex-column align-items-start">
+                            <div class="d-flex w-100 justify-content-between">
+                                <h5 class="mb-1">Earthquake</h5>
+                                <small>date</small>
+                            </div>
+                            <p class="mb-1">Donec id elit non mi porta gravida at eget metus. Maecenas sed diam eget risus varius blandit.</p>
+                            <small>Donec id elit non mi porta.</small>
+                            </a>
+                        </div> <!--end list-group -->
+                    </div> <!--end card-body -->
+                </div> <!--end card -->
+            </div> <!--end list column -->
+        </div> <!--end row -->
+    </div> <!--end container-fluid -->
+</body>
+</html>
+<script src="js/jquery.js"></script>
+<script src="js/bootstrap.min.js"></script>
+<script src="js/scripts.js"></script>
+<script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCzj-hCvS30OXmfiBsLDXcIUZoW5M0KEhY&libraries=places&callback=initAutocomplete"
+async defer></script>
