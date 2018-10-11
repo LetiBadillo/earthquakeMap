@@ -28,7 +28,7 @@ function initAutocomplete() {
     
     // Add location input to UI element.
     var searchBox = new google.maps.places.SearchBox(input);
-    map.controls[google.maps.ControlPosition.LEFT_TOP].push(input);
+    map.controls[google.maps.ControlPosition.RIGHT_TOP].push(input);
     
     // Listener to detect when the user selects location
     searchBox.addListener('places_changed', function() {
@@ -98,12 +98,34 @@ function getEarthquakes(markers, north, west, south, east){
     var url = "http://api.geonames.org/earthquakesJSON?north="+north+"&south="+south+"&east="+east+"&west="+west+"&username=holyfletcher&maxRows=10";
     $.get(url, function(data) {
         if(data.earthquakes.length > 0){
+            var marker, contentString = "";
+            var infowindow = new google.maps.InfoWindow(); 
             $.each(data.earthquakes, function(key, value){
-                markers.push(new google.maps.Marker({
+                marker = ""
+                
+                //Earthquake info
+                contentString= '<div id="content" class="text-center">'+
+                    '<h5 id="firstHeading" class="firstHeading">Earthquake</h5><h'+
+                    '<div id="bodyContent">\
+                        <p>Location: (' + value.lat+', '+value.lng+')</p>\
+                        <p>'+value.datetime+'</p>\
+                        <p>Magnitude: ' + value.magnitude+' Depth: ' + value.depth+'</p>\
+                    </div></div>';
+
+                marker = new google.maps.Marker({
                     map: map,
                     position: {lat: value.lat, lng: value.lng},
-                    title: "Magnitude: "+value.magnitude+ "- Date: "+value.datetime
-                }));
+                }); 
+                
+                google.maps.event.addListener(marker, 'mouseover', (function(marker) {  
+                        return function() {  
+                            var content = contentString;  
+                            infowindow.setContent(content);  
+                            infowindow.open(map, marker);  
+                        }  
+                })(marker)); 
+
+                markers.push(marker);
             });
         }else{
             showModal("No matches","0 results were found");
